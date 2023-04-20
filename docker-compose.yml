@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   server:
-    image: ts:latest
+    image: rlnt/teamspeak-debian:latest
     restart: unless-stopped
     ports:
       - 9987:9987/udp
