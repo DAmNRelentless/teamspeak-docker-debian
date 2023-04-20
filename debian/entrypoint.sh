@@ -1,10 +1,21 @@
-#! /bin/sh
+#!/bin/sh
 set -e
 
 # don't start ts3server with root permissions
 if [ "$1" = 'ts3server' -a "$(id -u)" = '0' ]; then
-    chown -R ts3server /var/ts3server /var/run/ts3server /opt/ts3server
-    exec su-exec ts3server "$0" "$@"
+    uid=ts3server
+    gid=ts3server
+
+    if [ -n "$UID" -a "$UID" -ne 0 ]; then
+        uid=$UID
+    fi
+    if [ -n "$GID" -a "$GID" -ne 0 ]; then
+        gid=$GID
+    fi
+
+    chown -R $uid:$gid /var/ts3server /var/run/ts3server /opt/ts3server
+    exec gosu $uid:$gid "$0" "$@"
+    return
 fi
 
 # have the default inifile as the last parameter
@@ -90,4 +101,4 @@ EOF
 EOF
 fi
 
-exec "$@"
+exec $@
