@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  server:
+    image: ts:latest
+    restart: unless-stopped
+    ports:
+      - 9987:9987/udp
+      - 10011:10011
+      - 30033:30033
+    environment:
+      TS3SERVER_LICENSE: accept
+      # UID: 1337
+      # GID: 1337
+    volumes:
+      - /opt/teamspeak:/var/ts3server
