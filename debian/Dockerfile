@@ -24,6 +24,7 @@ ENV PATH="$PATH:/opt/ts3server"
 
 # add entrypoint
 COPY entrypoint.sh /opt/ts3server
+RUN chmod +x /opt/ts3server/entrypoint.sh
 
 # finish
 EXPOSE 9987/udp 10011 30033
